@@ -13,8 +13,16 @@
       --light-bg: #f7fafc;
       --text-color: #2d3748;
       --border-color: #e2e8f0;
+      --section-bg: white;
+      --page-title: #2b6cb0;
     }
-
+    body.dark{
+      --page-title: white;
+      --light-bg: #1a202c;
+      --text-color: #f7fafc;
+      --border-color: #2d3748;
+      --section-bg: #2d3748;
+    }
     * {
       margin: 0;
       padding: 0;
@@ -30,7 +38,7 @@
     }
 
     header {
-      background-color: white;
+      background-color: var(--section-bg);
       color: var(--text-color);
       padding: 1rem 2rem;
       display: flex;
@@ -42,11 +50,18 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
+    body.dark header,
+    body.dark footer {
+      background-color: #000000;
+    }
+
+   
     /* Logo & Title */
     .nav-title {
       display: flex;
       align-items: center;
       color: black;
+      margin-right: auto;
     }
 
     .nav-title img {
@@ -62,7 +77,7 @@
 
     .nav-title h2 {
       margin: 0;
-      color: black;
+      color: var(--text-color);
       font-size: 1.8rem;
       font-weight: 600;
     }
@@ -81,15 +96,19 @@
     }
 
     nav {
-      margin-left: auto;
+      margin-left: 0;
+    }
+    nav ul li i{
+      color:#2b6cb0;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       margin: 0;
       padding: 0;
+      justify-content: flex-end;
     }
 
     nav ul li {
@@ -101,20 +120,47 @@
       text-decoration: none;
       font-weight: 500;
       padding: 0.5rem 0;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      position: relative;
     }
 
-    nav ul li a i {
-      font-size: 1.1rem;
-      width: 20px;
-      text-align: center;
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
     }
 
     nav ul li a:hover {
       color: var(--accent-color);
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Dark mode adjustments */
+    body.dark nav ul li a::after {
+      background-color: var(--accent-color);
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      nav ul li a::after {
+        display: none;
+      }
+      
+      nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
     }
 
     nav ul li ul {
@@ -146,6 +192,24 @@
       text-align: center;
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
 
     .hero h1 {
@@ -183,7 +247,8 @@
     }
 
     section {
-      padding: 5rem 2rem;
+      padding: 5rem 0;
+      position: relative;
       max-width: 1200px;
       margin: auto;
     }
@@ -218,12 +283,12 @@
       padding: 1.5rem;
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      background-color: white;
+      background-color: var(--section-bg);
       transition: all 0.3s ease;
     }
 
     .feature h3 {
-      color: var(--primary-color);
+      color: var(--page-title);
       margin-bottom: 1rem;
       font-size: 1rem;
     }
@@ -233,6 +298,9 @@
       box-shadow: 0 12px 24px rgba(0,0,0,0.1);
     }
 
+    #about h2{
+      color: var(--page-title);
+    }
     .feature-icon {
       font-size: 2rem;
       color: var(--accent-color);
@@ -269,10 +337,20 @@
       font-size: 2rem;
       margin-bottom: 1rem;
       color: white;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .logo-heading {
+    .brand-title img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .brand-title .logo-heading {
       color: var(--accent-color);
+      margin-left: 0.5rem;
     }
 
     .footer-description {
@@ -382,6 +460,7 @@
       opacity: 0.8;
     }
 
+
     /* Responsive Design */
     @media (max-width: 1024px) {
       .features {
@@ -423,6 +502,7 @@
       nav ul {
         flex-direction: column;
         gap: 0.5rem;
+        justify-content: flex-start;
       }
 
       nav ul li {
@@ -467,7 +547,7 @@
         font-size: 1rem;
         padding: 0 1rem;
       }
-
+      
       .cta-button {
         display: block;
         width: 100%;
@@ -563,55 +643,847 @@
       border-radius: 4px;
       cursor: pointer;
       z-index: 1001;
+      width: 40px;
+      height: 40px;
+      position: relative;
     }
 
-    /* Improve product content responsiveness */
-    .features {
+    .menu-toggle i {
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        position: relative;
+      }
+
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      nav {
+        margin-left: 0;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background: var(--primary-color);
+        padding: 4rem 1rem 1rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+      }
+
+      nav.active {
+        right: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      nav ul li {
+        width: 100%;
+      }
+
+      nav ul li a {
+        color: white;
+        padding: 0.75rem;
+        border-radius: 4px;
+        display: block;
+      }
+
+      nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      .nav-overlay.active {
+        display: block;
+      }
+    }
+
+    /* Creative Features Showcase */
+    .features-showcase {
+      padding: 4rem 2rem;
+      background: var(--light-bg);
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .showcase-item {
+      position: relative;
+      height: 300px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .showcase-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .showcase-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
       display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      padding: 20px 0;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      color: white;
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
     }
 
-    .features::-webkit-scrollbar {
-      display: none;
+    .showcase-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .showcase-item:hover .showcase-overlay {
+      transform: translateY(0);
+    }
+
+    .showcase-overlay h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .showcase-overlay p {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container::after {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-content::before,
+      .timeline-icon {
+        left: -45px !important;
+        right: auto !important;
+      }
+    }
+
+    /* Enhanced Timeline Styles */
+    .timeline-section {
+      padding: 6rem 2rem;
+      background: var(--section-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary-color) 0%, transparent 100%);
+      opacity: 0.05;
+    }
+
+    .timeline-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline-container::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--accent-color), var(--primary-color));
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 2px;
+      box-shadow: 0 0 20px rgba(66, 153, 225, 0.3);
+    }
+
+    .timeline-item {
+      padding: 20px 40px;
+      position: relative;
+      width: 50%;
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      transform: translateX(100px);
+    }
+
+    .timeline-item:nth-child(even).visible {
+      transform: translateX(0);
+    }
+
+    .timeline-content {
+      padding: 2rem;
+      background: var(--light-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .timeline-content h3 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .timeline-content h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .timeline-content:hover h3::after {
+      width: 100%;
+    }
+
+    .timeline-content p {
+      color: var(--text-color);
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    .timeline-icon {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 0 20px rgba(66, 153, 225, 0.5);
+      z-index: 2;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-icon {
+      right: -35px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-icon {
+      left: -35px;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container::after {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-icon {
+        left: -35px !important;
+        right: auto !important;
+      }
+    }
+
+    /* Smooth Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero h1 {
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .hero p {
+      animation: slideUp 0.8s ease-out 0.2s backwards;
+    }
+
+    .hero .cta-button {
+      animation: slideUp 0.8s ease-out 0.4s backwards;
     }
 
     .feature {
-      flex: 0 0 280px;
-      scroll-snap-align: start;
-      min-width: 280px;
-      margin: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+
+    .feature.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .showcase-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+
+    .showcase-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    section h2 {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+
+    section h2.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Smooth hover effects */
+    .feature:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .showcase-item:hover {
+      transform: scale(1.02);
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Add transition for smooth hover effects */
+    .feature, .showcase-item, .timeline-content {
+      transition: all 0.3s ease;
+    }
+    /* Heading styles for dark theme */
+
+body.dark section h2,
+body.dark .feature h3,
+body.dark .timeline-content h3,
+body.dark .showcase-overlay h3 {
+  color: #87CEEB !important;  /* Sky blue color */
+}
+
+
+    /* Mobile Responsive Styles for Our Journey Section */
+    @media (max-width: 768px) {
+        .timeline-section h2 {
+            font-size: 1.5rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.6rem;
+        }
     }
 
     @media (max-width: 480px) {
-      .feature {
-        flex: 0 0 250px;
-        min-width: 250px;
+        .timeline-section h2 {
+            font-size: 1rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 0.9rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.6rem;
+        }
+    }
+
+    /* Dropdown Menu Styles */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--section-bg);
+      min-width: 200px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      padding: 0.5rem 0;
+      z-index: 1000;
+      animation: fadeSlideIn 0.3s ease forwards;
+    }
+
+    .dropdown-menu li {
+      width: 100%;
+    }
+
+    .dropdown-menu li a {
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: var(--light-bg);
+      color: var(--accent-color);
+    }
+
+    .dropdown-menu li a i {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Dark mode adjustments for dropdown */
+    body.dark .dropdown-menu {
+      background-color: var(--section-bg);
+      border: 1px solid var(--border-color);
+    }
+
+    body.dark .dropdown-menu li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Modern Split Section */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .split-section {
+      display: flex;
+      min-height: 300px;
+      background: #1a365d;
+      position: relative;
+      overflow: hidden;
+      max-width: 1400px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      border-radius: 0;
+      margin: 0;
+    }
+
+    .split-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/Inventoryb1.jpg') center/cover;
+      opacity: 0.3;
+      z-index: 1;
+      transition: all 0.5s ease;
+      filter: grayscale(20%) brightness(0.8);
+    }
+
+    .split-section:hover::before {
+      opacity: 0.4;
+      filter: grayscale(10%) brightness(0.9);
+    }
+
+    .split-content {
+      flex: 1;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(90deg, 
+        rgba(26, 54, 93, 0.98) 0%, 
+        rgba(26, 54, 93, 0.9) 40%,
+        rgba(26, 54, 93, 0.7) 100%);
+    }
+
+    .split-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      color: white;
+      line-height: 1.2;
+      position: relative;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .split-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .split-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 2rem;
+      max-width: 90%;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      animation: fadeInUp 0.8s ease-out 0.2s backwards;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .split-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      animation: fadeInUp 0.8s ease-out 0.4s backwards;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stat-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .stat-box:hover::before {
+      opacity: 1;
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      height: 50px;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-box:hover .stat-icon {
+      transform: scale(1.1) rotate(5deg);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 0.3rem;
+      line-height: 1;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      transition: transform 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-box:hover .stat-number {
+      transform: scale(1.05);
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .split-image {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInRight 0.8s ease-out 0.6s backwards;
+      max-height: 300px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .split-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease;
+      filter: brightness(0.9) contrast(1.1);
+    }
+
+    .split-image:hover img {
+      transform: scale(1.05);
+      filter: brightness(1) contrast(1.2);
+    }
+
+    .highlight-text {
+      color: var(--accent-color);
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+    }
+
+    @media (max-width: 992px) {
+      .split-section {
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      .split-content {
+        padding: 2rem;
+        background: linear-gradient(180deg, 
+          rgba(26, 54, 93, 0.98) 0%, 
+          rgba(26, 54, 93, 0.9) 100%);
+      }
+
+      .split-title {
+        font-size: 2.2rem;
+      }
+
+      .split-text {
+        font-size: 1rem;
+      }
+
+      .stat-box {
+        padding: 1.2rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <header>
+  <header class="header">
     <div class="nav-title">
-      <img src="assets/logo.png" width="60" height="60" alt="Logo">
+      <img src="assets/logo1.png" width="60" height="60" alt="Logo">
       <h2>Invexa <span class="logo-heading" style="color: #2b6cb0;">Plus</span></h2>
     </div>
-    <button class="menu-toggle">
+    <button class="menu-toggle" aria-label="Toggle navigation menu">
       <i class="fas fa-bars"></i>
     </button>
     <nav>
       <ul>
-        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+        <li>
+          <a href="#" class="dropdown-toggle">
+            <i class="fas fa-home"></i>
+            Home
+            <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem;"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#features">
+                <i class="fas fa-star"></i>
+                Features
+              </a>
+            </li>
+            <li>
+              <a href="#about">
+                <i class="fas fa-info-circle"></i>
+                Our Journey
+              </a>
+            </li>
+            <li>
+              <a href="#contact">
+                <i class="fas fa-envelope"></i>
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="#features-showcase">
+                <i class="fas fa-star"></i>
+                Explore Our Features
+              </a>
+            </li>
+          </ul>
+        </li>
         <li><a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
         <li><a href="products.php"><i class="fas fa-boxes"></i> Products</a></li>
-        <li><a href="order.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-        <li><a href="Trackorder.php"><i class="fas fa-truck"></i> TrackOrders</a></li>
+        <li>
+          <a href="#" class="dropdown-toggle">
+            <i class="fas fa-shopping-cart"></i>
+            Orders
+            <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 0.5rem;"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="customer_order.php">
+                <i class="fas fa-users"></i>
+                Customer Orders
+              </a>
+            </li>
+            <li>
+              <a href="order.php">
+                <i class="fas fa-shopping-basket"></i>
+                Manage Orders
+              </a>
+            </li>
+            <li>
+              <a href="Trackorder.php">
+                <i class="fas fa-truck"></i>
+                Track Orders
+              </a>
+            </li>
+          </ul>
+        </li>
         <li><a href="setting.php"><i class="fas fa-cog"></i> Settings</a></li>
       </ul>
     </nav>
@@ -619,10 +1491,15 @@
   </header>
 
   <div class="hero">
-    <h1>Transform Your Inventory Management</h1>
-    <p>Enterprise-grade inventory management system designed to streamline operations, reduce costs, and drive business growth.</p>
-    <a href="login.php" class="cta-button">Get Started</a>
-    <a href="signup.php" class="cta-button">Sign Up</a>
+    <video class="hero-video" autoplay muted loop>
+      <source src="assets/herov-vmake.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>Transform Your Inventory Management</h1>
+      <p>Enterprise-grade inventory management system designed to streamline operations, reduce costs, and drive business growth.</p>
+      <a href="login.php" class="cta-button">Login</a>
+      <a href="signup.php" class="cta-button">Sign Up</a>
+    </div>
   </div>
 
   <section id="features">
@@ -634,9 +1511,9 @@
         <p>Real-time tracking, automated reordering, and intelligent stock level management across multiple locations.</p>
       </div>
       <div class="feature">
-        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-        <h3>Analytics & Reporting</h3>
-        <p>Comprehensive dashboards and customizable reports to make data-driven business decisions.</p>
+        <div class="feature-icon"><i class="fas fa-box"></i></div>
+        <h3>Product Management</h3>
+        <p>Comprehensive product tracking, categorization, and stock level monitoring with real-time updates and automated alerts.</p>
       </div>
       <div class="feature">
         <div class="feature-icon"><i class="fas fa-sync"></i></div>
@@ -658,13 +1535,114 @@
     </p>
   </section>
 
+  <section class="timeline-section">
+    <h2>Our Journey</h2>
+    <div class="timeline-container">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>2025</h3>
+          <p>Started as a student project with a vision to create an innovative inventory management solution for small businesses.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>2025</h3>
+          <p>Developed the core features including real-time inventory tracking, user authentication, and basic reporting system.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>2025</h3>
+          <p>Launched beta version with initial user testing and feedback from fellow students and local businesses.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>2025</h3>
+          <p>Project completion and presentation as part of academic portfolio, showcasing practical web development skills.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Split Section -->
+  <section class="split-section">
+    <div class="split-content">
+      <h2 class="split-title">Elevate Your Business with <span class="highlight-text">Smart Inventory</span></h2>
+      <p class="split-text">Streamline your operations with our cutting-edge inventory management system. Real-time tracking, AI-powered insights, and seamless integration for maximum efficiency.</p>
+      <div class="split-stats">
+        <div class="stat-box">
+          <div class="stat-icon">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">Accuracy Rate</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Real-time Updates</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-showcase" id="features-showcase">
+    <h2>Explore Our Features</h2>
+    <div class="showcase-grid">
+      <div class="showcase-item">
+        <img src="assets/insights.jpg" alt="Real-time Analytics">
+        <div class="showcase-overlay">
+          <h3>Real-time Analytics</h3>
+          <p>Monitor your inventory with live dashboards and insights</p>
+        </div>
+      </div>
+      <div class="showcase-item">
+        <img src="assets/track.jpg" alt="Order Tracking">
+        <div class="showcase-overlay">
+          <h3>Order Tracking</h3>
+          <p>Real-time order tracking and status updates for better customer experience</p>
+        </div>
+      </div>
+      <div class="showcase-item">
+        <img src="assets/inventb2.jpg" alt="Mobile Access">
+        <div class="showcase-overlay">
+          <h3>Mobile Access</h3>
+          <p>Manage your inventory from anywhere, anytime</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer-pro">
     <div class="footer-grid">
       <!-- Branding -->
       <div class="footer-section brand">
-        <h2 class="brand-title">Invexa <span class="logo-heading">Plus</span></h2>
+        <h2 class="brand-title">
+          <img src="assets/whiteLogo.png" width="60" height="60" alt="Logo">
+          Invexa <span class="logo-heading">Plus</span>
+        </h2>
         <p class="footer-description">
-          Powering inventory excellence with intelligent tools to streamline your business.
+        We power inventory excellence with intelligent tools that streamline operations, 
+        cut manual tasks, and enable smarter business decisions.
         </p>
       </div>
   
@@ -690,7 +1668,7 @@
       </div>
       
       <!-- Contact Info -->
-      <div class="footer-section">
+      <div class="footer-section" id="contact">
         <h3>Contact</h3>
         <p>Email: <a href="mailto:support@invexaplus.com">support@invexaplus.com</a></p>
         <p>Phone: +92-311*******</p>
@@ -708,6 +1686,7 @@
     </div>
   </footer>
 
+  <script src="theme.js"></script>
   <script>
     // Mobile menu functionality
     const menuToggle = document.querySelector('.menu-toggle');
@@ -717,11 +1696,24 @@
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('active');
       overlay.classList.toggle('active');
+      // Toggle menu icon
+      const icon = menuToggle.querySelector('i');
+      if (nav.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
     });
 
     overlay.addEventListener('click', () => {
       nav.classList.remove('active');
       overlay.classList.remove('active');
+      // Reset menu icon
+      const icon = menuToggle.querySelector('i');
+      icon.classList.remove('fa-times');
+      icon.classList.add('fa-bars');
     });
 
     // Close menu when clicking outside
@@ -729,26 +1721,57 @@
       if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
         nav.classList.remove('active');
         overlay.classList.remove('active');
+        // Reset menu icon
+        const icon = menuToggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
       }
     });
 
-    // Existing scroll animation code
-    const sections = document.querySelectorAll("section");
-
-    const revealOnScroll = () => {
-      const triggerBottom = window.innerHeight * 0.85;
-
-      sections.forEach((section) => {
-        const boxTop = section.getBoundingClientRect().top;
-
-        if (boxTop < triggerBottom) {
-          section.classList.add("visible");
+    // Smooth scroll animation
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.feature, .timeline-item, .showcase-item, section h2');
+      
+      elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementBottom = element.getBoundingClientRect().bottom;
+        
+        if (elementTop < window.innerHeight * 0.8 && elementBottom > 0) {
+          element.classList.add('visible');
         }
       });
     };
 
-    window.addEventListener("scroll", revealOnScroll);
-    window.addEventListener("load", revealOnScroll);
+    // Run animation on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    // Run animation on load
+    window.addEventListener('load', animateOnScroll);
+
+    // Add dropdown functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdownToggle = document.querySelector('.dropdown-toggle');
+      const dropdownMenu = document.querySelector('.dropdown-menu');
+
+      dropdownToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+          dropdownMenu.style.display = 'none';
+        }
+      });
+
+      // Close dropdown when clicking on a menu item
+      const dropdownItems = dropdownMenu.querySelectorAll('a');
+      dropdownItems.forEach(item => {
+        item.addEventListener('click', function() {
+          dropdownMenu.style.display = 'none';
+        });
+      });
+    });
   </script>
 </body>
 </html>
