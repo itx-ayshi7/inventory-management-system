@@ -1,42 +1,22 @@
-name: Deploy Inventory Management System
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - main  # or 'master' if that’s your default branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          php-version: '8.1'
-          extensions: mysqli
-          coverage: none
-
-      - name: Validate PHP Syntax
-        run: |
-          find src/ -name "*.php" -exec php -l {} \;
-
-      - name: Upload to Remote Server (Optional)
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./src/
-          server-dir: /public_html/inventory/
-
-      - name: Notify Deployment (Optional)
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: echo "🚀 Deployment complete to production server!"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src  # Replace with folder containing index.html
+          publish_branch: gh-pages
+          enable_jekyll: false
+          force_orphan: true  # Optional: clean branch before push
