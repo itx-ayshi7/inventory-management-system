@@ -1,8 +1,8 @@
 # ✅ Testing Documentation
 
 ## 📦 Project: Inventory Management System
-*Function Tested:* displayProduct  
-*File:* src/js/product.js  
+*Function Tested:* displayProduct , deleteOrder  
+*File:* src/js/product.js  , order.js
 *Tool Used:* Qodo Gen (in VS Code)
 
 ---
@@ -17,8 +17,8 @@ The displayProduct function is responsible for rendering the list of products fr
 
 - *Editor:* Visual Studio Code
 - *Testing Tool:* Qodo Gen (Formerly CodiumAI)
-- *Target File:* product.js
-- *Target Function:* displayProduct()
+- *Target File:* product.js, order.js
+- *Target Function:* displayProduct(), deleteOrder()
 - *Test Mode:* Static code analysis and runtime verification
 
 ---
@@ -46,3 +46,26 @@ function displayProduct(products) {
     tableBody.appendChild(row);
   });
 }
+```
+```
+function deleteOrder(orderId) {
+  if (confirm("Are you sure you want to delete this order?")) {
+    fetch(delete_order.php?id=${orderId}, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alert("Order deleted successfully!");
+          loadOrders(); // Refresh order list
+        } else {
+          alert("Failed to delete order.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while deleting the order.");
+      });
+  }
+}
+```
