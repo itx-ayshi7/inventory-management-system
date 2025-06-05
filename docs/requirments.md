@@ -66,5 +66,9 @@
 | US14| As a user, I want to submit feedback so that I can communicate with support. | 1 |
 
 ---
+**Prompt Screenshot**: _*Figure 1: ChatGPT prompt for requirement analysis*_ 
+![Figure 1: ChatGPT requirement analysis](./screenshots/figure-1-chatgpt-requirements.png)
 
+### 📷 Figure 2: GitHub Project Board Overview
+![Figure 2 – GitHub Project Board](./screenshots/figure-2-github-project-board.png)
 ## 🔚 End of Document
