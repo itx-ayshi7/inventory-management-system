@@ -5,7 +5,11 @@
 This project is a *web-based Inventory Management System* designed to help businesses efficiently track their stock levels, manage product orders, and generate visual reports. The system uses *PHP and MySQL (via XAMPP)* for backend and data storage, and integrates *AI automation tools* across the Software Development Life Cycle (SDLC) to streamline development, testing, and deployment.
 
 ---
-
+## 👨‍💻 Team Members
+- Ayesha Eman – Project Manager
+- Syeda Nabia Ali – Developer
+- Saira Sohail – Tester
+---
 ## 🎯 Objectives
 
 - Manage product inventory with full CRUD operations
