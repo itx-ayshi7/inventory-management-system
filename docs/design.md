@@ -94,3 +94,5 @@ This system follows a 3-tier architecture:
 ### 📷 Figure 4: System Architecture
 ![Figure 4 – System Diagram](./screenshots/Figure-4-SystemArchitecture.png)
 
+### 📷 Figure 5: Dashboard Wireframe
+![Figure 5 – Dashboard Wireframe](./screenshots/figure-5-wireframe1.jpg)
