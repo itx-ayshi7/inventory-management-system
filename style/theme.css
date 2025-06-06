@@ -1,0 +1,211 @@
+/* Theme Variables */
+:root {
+    /* Light Theme (default) */
+    --primary-color: #2b6cb0;
+    --secondary-color: #2c5282;
+    --accent-color: #4299e1;
+    --background-color: #f7fafc;
+    --text-color: #2d3748;
+    --border-color: #e2e8f0;
+    --card-bg: #ffffff;
+    --hover-bg: #edf2f7;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --primary-color: #4299e1;
+    --secondary-color: #2b6cb0;
+    --accent-color: #63b3ed;
+    --background-color: #1a202c;
+    --text-color: #f7fafc;
+    --border-color: #2d3748;
+    --card-bg: #2d3748;
+    --hover-bg: #4a5568;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Apply theme colors */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark theme styles */
+body.dark {
+  --page-title: #87CEEB;  /* Sky blue color */
+  --light-bg: #1a202c;
+  --text-color: #f7fafc;
+  --border-color: #2d3748;
+  --section-bg: #2d3748;
+}
+
+/* Heading styles for dark theme */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark .logo-heading,
+body.dark .nav-title h2,
+body.dark .brand-title,
+body.dark section h2,
+body.dark .feature h3,
+body.dark .timeline-content h3,
+body.dark .showcase-overlay h3 {
+  color: #87CEEB !important;  /* Sky blue color */
+}
+
+/* Card and container styles */
+.settings-section,
+.add-product-form,
+.products-table,
+.images {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Form elements */
+input, select, textarea {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+}
+
+/* Table styles */
+table {
+    color: var(--text-color);
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+td {
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:hover {
+    background-color: var(--hover-bg);
+}
+
+/* Button styles */
+.btn {
+    background-color: var(--accent-color);
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Theme toggle switch */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Sidebar styles */
+
+.sidebar {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Product card styles */
+.product {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Message styles */
+.message {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+} 
+
